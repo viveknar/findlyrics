@@ -1,6 +1,19 @@
+const yargs = require('yargs');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const {mongoose, write} = require('./db/db');
+
+var argv = yargs
+    .option({
+        port: {
+            default: 3000,
+            number: true
+        }
+    })
+    .help()
+    .alias('help', 'h')
+    .argv;
 
 
 const {fetchLyrics} = require('./fetchLyrics');
@@ -32,8 +45,8 @@ app.post('/postlyrics', (req, res) => {
 
 
 
-app.listen(4000, () => {
-    console.log('Listening on port 4000');
+app.listen(argv.port, () => {
+    console.log(`Listening on port ${argv.port}`);
 });
 
 module.exports.app = app;
