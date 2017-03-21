@@ -7,15 +7,16 @@ var getLyrics = (songParameters, callback) => {
     request({
         url: `http://www.metrolyrics.com/${trackname}-lyrics-${artistname}.html`
     }, (err, res, body) => {
-        console.log(`http://www.metrolyrics.com/${trackname}-lyrics-${artistname}.html`);
         if (res && res.statusCode === 200) {
             var $ = cheerio.load(body);
-            var arr = []
-            $('#lyrics-body-text').each(function (i) {
-                arr[i] = $(this).text();
+            var arr = [];
+            $('#lyrics-body-text .verse').filter(function (i) {
+                arr.push($(this).text());
+                arr.push('\n');
             });
+
             if (arr.length === 0) {
-                callback('no lyrics to show');
+                callback('no lyrics to show. Check artist name or song title');
             } else {
                 var arrText = arr.join('\n');
                 callback(undefined, arrText);
