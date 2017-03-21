@@ -25,8 +25,8 @@ var getTrackId = (songObject, callback) => {
         json: true
     }, (error, req, res) => {
         if (res.message.header.status_code === 200 && res.message.header.available !== 0) {
-            songParameters.artistname = res.message.body.track_list[0].track.artist_name;
-            songParameters.trackname = res.message.body.track_list[0].track.track_name;
+            songParameters.artistName = res.message.body.track_list[0].track.artist_name;
+            songParameters.trackName = res.message.body.track_list[0].track.track_name;
 
             callback(undefined, songParameters);
         } else if(res.message.header.status_code === 401) {

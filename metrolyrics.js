@@ -2,8 +2,9 @@ const request = require('request');
 const cheerio = require('cheerio');
 
 var getLyrics = (songParameters, callback) => {
-    var trackname = songParameters.trackname.split(' ').join('-');
-    var artistname = songParameters.artistname.split(' ').join('-');
+    var trackname = songParameters.trackName.split(' ').join('-');
+    var artistname = songParameters.artistName.split(' ').join('-');
+    console.log(`http://www.metrolyrics.com/${trackname}-lyrics-${artistname}.html`);
     request({
         url: `http://www.metrolyrics.com/${trackname}-lyrics-${artistname}.html`
     }, (err, res, body) => {
@@ -21,6 +22,9 @@ var getLyrics = (songParameters, callback) => {
                 var arrText = arr.join('\n');
                 callback(undefined, arrText);
             }
+        }
+        if(res.statusCode === 404) {
+            callback('Request resource not found.');
         }
     });
 }
