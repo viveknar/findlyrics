@@ -1,7 +1,8 @@
 const request = require('request');
 const cheerio = require('cheerio');
+const {apiKey} = require('./config');
 
-var baseRequestURL = 'https://api.musixmatch.com/ws/1.1/track.search?apikey=1c5e9d5b894d5839719e2144be47af79';
+var baseRequestURL = `https://api.musixmatch.com/ws/1.1/track.search?apikey=${apiKey}`;
 
 
 var getSearchURLString = (songObject) => {
